@@ -3,16 +3,16 @@
 /* eslint-disable no-use-before-define */
 
 
-function covid19ImpactEstimator(req, res) {
-  const impact = impactFunction(req.body);
-  const severeImpact = severeImpactFunction(req.body);
+function covid19ImpactEstimator(data) {
+  const impact = impactFunction(data);
+  const severeImpact = severeImpactFunction(data);
   const output = {
-    data: req.body,
+    data,
     impact,
     severeImpact
   };
 
-  res.status(200).sendData(output);
+  return output;
 }
 
 function impactFunction(data) {
