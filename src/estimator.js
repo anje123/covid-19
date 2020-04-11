@@ -40,7 +40,7 @@ function impactFunction(data) {
   impact.casesForICUByRequestedTime = casesForICUByRequestedTime;
   const casesForVentilatorsByRequestedTime = casesForVentilatorsByRequestedTimeFunction(infectionsByRequestedTime);
   impact.casesForVentilatorsByRequestedTime = casesForVentilatorsByRequestedTime;
-  const dollarsInFlight = dollarsInFlightFunction(infectionsByRequestedTime);
+  const dollarsInFlight = dollarsInFlightFunction(infectionsByRequestedTime, data, data.timeToElapse, data.periodType);
   impact.dollarsInFlight = dollarsInFlight;
 
   return impact;
@@ -75,7 +75,7 @@ function severeImpactFunction(data) {
   // casesForVentilatorsByRequestedTime
   const casesForVentilatorsByRequestedTime = casesForVentilatorsByRequestedTimeFunction(infectionsByRequestedTime);
   impact.casesForVentilatorsByRequestedTime = casesForVentilatorsByRequestedTime;
-  const dollarsInFlight = dollarsInFlightFunction(infectionsByRequestedTime, data.timeToElapse, data.periodType);
+  const dollarsInFlight = dollarsInFlightFunction(infectionsByRequestedTime, data, data.timeToElapse, data.periodType);
   impact.dollarsInFlight = dollarsInFlight;
 
 
@@ -120,7 +120,7 @@ function casesForVentilatorsByRequestedTimeFunction(infectionsByRequestedTime) {
   return Math.trunc((2 / 100) * infectionsByRequestedTime);
 }
 
-function dollarsInFlightFunction(infectionsByRequestedTime, timeToElapse, periodType) {
+function dollarsInFlightFunction(infectionsByRequestedTime, data, timeToElapse, periodType) {
   let time = 1;
   if (periodType === 'days') {
     time = timeToElapse;
@@ -131,7 +131,7 @@ function dollarsInFlightFunction(infectionsByRequestedTime, timeToElapse, period
   if (periodType === 'months') {
     time = timeToElapse * 30;
   }
-  return Math.trunc((infectionsByRequestedTime * 0.65) * 1.5 * time);
+  return (infectionsByRequestedTime * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD) / time;
 }
 
 
