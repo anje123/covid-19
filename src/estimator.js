@@ -131,7 +131,7 @@ function dollarsInFlightFunction(infectionsByRequestedTime, data, timeToElapse, 
   if (periodType === 'months') {
     time = timeToElapse * 30;
   }
-  return (infectionsByRequestedTime * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD) / time;
+  return Math.trunc((infectionsByRequestedTime * data.region.avgDailyIncomePopulation * data.region.avgDailyIncomeInUSD) / time);
 }
 
 
