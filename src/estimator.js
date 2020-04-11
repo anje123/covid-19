@@ -32,9 +32,9 @@ function impactFunction(data) {
   // avaliable cases
   const AvaliableBedSpace = avaliableBedSpaceFunction(data.totalHospitalBeds, severeCasesByRequestedTime);
   if (AvaliableBedSpace < 0) {
-    impact.hospitalBedsByRequestedTime = Math.floor(AvaliableBedSpace);
+    impact.hospitalBedsByRequestedTime = Math.trunc(AvaliableBedSpace);
   } else {
-    impact.hospitalBedsByRequestedTime = Math.floor((35 / 100) * data.totalHospitalBeds);
+    impact.hospitalBedsByRequestedTime = Math.trunc((35 / 100) * data.totalHospitalBeds);
   }
   const casesForICUByRequestedTime = casesForICUByRequestedTimeFunction(infectionsByRequestedTime);
   impact.casesForICUByRequestedTime = casesForICUByRequestedTime;
@@ -65,7 +65,7 @@ function severeImpactFunction(data) {
   if (AvaliableBedSpace < 0) {
     impact.hospitalBedsByRequestedTime = AvaliableBedSpace;
   } else {
-    impact.hospitalBedsByRequestedTime = Math.floor((35 / 100) * data.totalHospitalBeds);
+    impact.hospitalBedsByRequestedTime = Math.trunc((35 / 100) * data.totalHospitalBeds);
   }
 
   // casesForICUByRequestedTime
@@ -98,26 +98,26 @@ function infectionsByRequestedTimeFunction(currentlyInfected, timeToElapse, peri
   if (periodType === 'months') {
     time = timeToElapse * 30;
   }
-  const repeatedTime = Math.floor(time / 3);
+  const repeatedTime = Math.trunc(time / 3);
 
-  return Math.floor(currentlyInfected * (2 ** repeatedTime));
+  return Math.trunc(currentlyInfected * (2 ** repeatedTime));
 }
 
 function severeCasesByRequestedTimeFunction(infectionsByRequestedTime) {
-  return Math.floor((15 / 100) * infectionsByRequestedTime);
+  return Math.trunc((15 / 100) * infectionsByRequestedTime);
 }
 
 function avaliableBedSpaceFunction(totalHospitalBeds, severeCasesByRequestedTime) {
   const hospitalBedsByRequestedTime = (35 / 100) * totalHospitalBeds;
-  return Math.floor(hospitalBedsByRequestedTime - severeCasesByRequestedTime);
+  return Math.trunc(hospitalBedsByRequestedTime - severeCasesByRequestedTime);
 }
 
 function casesForICUByRequestedTimeFunction(infectionsByRequestedTime) {
-  return Math.floor((5 / 100) * infectionsByRequestedTime);
+  return Math.trunc((5 / 100) * infectionsByRequestedTime);
 }
 
 function casesForVentilatorsByRequestedTimeFunction(infectionsByRequestedTime) {
-  return Math.floor((2 / 100) * infectionsByRequestedTime);
+  return Math.trunc((2 / 100) * infectionsByRequestedTime);
 }
 
 function dollarsInFlightFunction(infectionsByRequestedTime, timeToElapse, periodType) {
@@ -131,7 +131,7 @@ function dollarsInFlightFunction(infectionsByRequestedTime, timeToElapse, period
   if (periodType === 'months') {
     time = timeToElapse * 30;
   }
-  return Math.floor((infectionsByRequestedTime * 0.65) * 1.5 * time);
+  return Math.trunc((infectionsByRequestedTime * 0.65) * 1.5 * time);
 }
 
 
