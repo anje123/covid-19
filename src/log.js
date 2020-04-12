@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 const fs = require('fs');
 
 function log(req, res) {

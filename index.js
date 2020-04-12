@@ -4,7 +4,8 @@ import fs from 'fs';
 import morgan from 'morgan';
 import path from 'path';
 import url from 'url';
-import api_estimator from "./src/API/estimator";
+import estimator from './src/estimator';
+import api_estimator from "./src/estimator2";
 import log from './src/log';
 
 
@@ -17,7 +18,7 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'),
 app.use(morgan((tokens, req, res) => [
   `${tokens.date(req, res)}\t\t`,
   `${url.parse(req.url).pathname}\t\t`,
-  `${tokens['response-time'](req, res)}`
+  `done in ${tokens['response-time'](req, res)}`, 'ms'
 ].join(' '), { stream: accessLogStream }));
 
 app.use(express.json());
@@ -40,9 +41,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post('/api/v1/on-covid-19',api_estimator);
-app.get('/api/v1/on-covid-19/:format', api_estimator);
 app.get('/api/v1/on-covid-19/logs', log);
+app.post('/api/v1/on-covid-19', estimator);
+app.get('/api/v1/on-covid-19/:format', estimator);
 
 
 // Not found middleware
