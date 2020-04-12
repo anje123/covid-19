@@ -1,8 +1,3 @@
-/* eslint-disable max-len */
-
-/* eslint-disable no-use-before-define */
-
-
 function covid19ImpactEstimator(req, res) {
     const impact = impactFunction(req.body);
     const severeImpact = severeImpactFunction(req.body);

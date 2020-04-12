@@ -17,7 +17,7 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'),
 app.use(morgan((tokens, req, res) => [
   `${tokens.date(req, res)}\t\t`,
   `${url.parse(req.url).pathname}\t\t`,
-  `done in ${tokens['response-time'](req, res)}`, 'ms'
+  `${tokens['response-time'](req, res)}`
 ].join(' '), { stream: accessLogStream }));
 
 app.use(express.json());
@@ -41,7 +41,7 @@ app.use((req, res, next) => {
 });
 
 app.post('/api/v1/on-covid-19',api_estimator);
-app.post('/api/v1/on-covid-19/:format', api_estimator);
+app.get('/api/v1/on-covid-19/:format', api_estimator);
 app.get('/api/v1/on-covid-19/logs', log);
 
 
