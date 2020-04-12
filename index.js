@@ -30,7 +30,7 @@ app.use((req, res, next) => {
       res.header('Content-Type', 'application/json');
       res.send(object);
     } else if (req.params.format === 'xml') {
-      res.header('Content-Type', 'text/xml');
+      res.header('Content-Type', 'application/xml');
       const xml = o2x({ '?xml version="1.0" encoding="UTF-8" ?': null, object });
       res.send(xml);
     } else {
