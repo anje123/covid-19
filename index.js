@@ -4,7 +4,7 @@ import fs from 'fs';
 import morgan from 'morgan';
 import path from 'path';
 import url from 'url';
-import estimator from './src/estimator';
+import api_estimator from "./src/API/estimator";
 import log from './src/log';
 
 
@@ -40,8 +40,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post('/api/v1/on-covid-19', estimator);
-app.post('/api/v1/on-covid-19/:format', estimator);
+app.post('/api/v1/on-covid-19',api_estimator);
+app.post('/api/v1/on-covid-19/:format', api_estimator);
 app.get('/api/v1/on-covid-19/logs', log);
 
 
