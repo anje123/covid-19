@@ -31,7 +31,7 @@ app.use((req, res, next) => {
       res.send(object);
     } else if (req.params.format === 'xml') {
       res.header('Content-Type', 'text/xml');
-      const xml = o2x({ '?xml version=\"1.0\" encoding=\"iso-8859-1\"?': null, object });
+      const xml = o2x({ '?xml version="1.0" encoding="UTF-8" ?': null, object });
       res.send(xml);
     } else {
       res.status(404).send({ message: 'Endpoint not found.' });
