@@ -10,7 +10,7 @@
     "start": "nodemon --exec babel-node index.js"
   },
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "morgan": "^1.10.0",
     "object-to-xml": "^2.0.0",
     "on-covid-19": "^0.1.3"
